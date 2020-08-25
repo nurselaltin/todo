@@ -169,7 +169,7 @@
                            @foreach($shoplists as $shoplist)
                                 <li style="padding-left: 20px;">
                                     <input type="hidden" id="list-id" list-id={{$shoplist->id}} >
-                                    <input class='checkbox' type='checkbox'  @if($shoplist->status == 'Liste alışverisi yapıldı') checked @endif list-id="{{$shoplist->id}}"/>
+                                    <input class='checkbox' type='checkbox'  @if($shoplist->status == 'Liste alışverişi yapıldı') checked @endif list-id="{{$shoplist->id}}"/>
                                     <a href="{{route('add.product.page',$shoplist->id)}}"><span class='todo-text'>{{$shoplist->title}}</span></a>
                                     <a class='remove text-right'>
                                         <i class='fa fa-trash'></i>
@@ -230,41 +230,26 @@
 
 
 
+
                 if($(this).attr('checked'))
                 {
 
-
-                    $(this).removeAttr('checked');
-                    $.ajax({
-                        type:'GET',
-                        url:'{{route('change.list.status')}}',
-                        data:{list_id:id,list_status:status},
-                        success:function (data) {
-                            console.log(data)
-                        },
-                        error: (error) => {
-                            console.log(JSON.stringify(error));
-                        }
+                    //get metodu ile durumunu değiştirelim
+                    $.get('{{route('change.list.status')}}',{list_status:status,list_id:id},function (data) {
+                        console.log(data);
                     });
 
+                    $(this).removeAttr('checked');
 
                 }
                 else
                 {
-
-                    $(this).attr('checked', 'checked');
-                    $.ajax({
-                        type:'GET',
-                        url:'{{route('change.list.status')}}',
-                        data:{list_id:id,list_status:status},
-                        success:function (data) {
-                            console.log(data)
-                        },
-                        error: (error) => {
-                            console.log(JSON.stringify(error));
-                        }
+                    //get metodu ile durumunu değiştirelim
+                    $.get('{{route('change.list.status')}}',{list_status:status,list_id:id},function (data) {
+                        console.log(data);
                     });
 
+                    $(this).attr('checked', 'checked');
 
                 }
 

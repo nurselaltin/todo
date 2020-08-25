@@ -194,7 +194,7 @@
                            @foreach($products as $product)
                                 <li style="padding-left: 20px;">
                                     <input type="hidden" id="remove-id" remove-id={{$product->id}} >
-                                    <input class='checkbox' type='checkbox' />
+                                    <input class='checkbox' type='checkbox' @if($product->status == 'Ürün alındı') checked @endif product-id="{{$product->id}}" />
                                     <a href="{{route('add.product.page',$product->id)}}"><span class='todo-text'>{{$product->title}}</span></a>
                                     <a class='remove text-right'>
                                         <i class='fa fa-trash'></i>
@@ -246,27 +246,35 @@
 
             $(document).on('change', '.checkbox', function()
             {
+
+
+                $(this).removeAttr('checked');
+                id = $(this)[0].getAttribute('product-id');
+                status = $(this).prop('checked');
+                //get metodu ile durumunu değiştirelim
+                $.get('{{route('change.product.status')}}',{product_status:status,product_id:id},function (data) {
+                    console.log(data);
+                });
+
                 if($(this).attr('checked'))
                 {
+
+
                     $(this).removeAttr('checked');
-
-
-
 
                 }
                 else
                 {
+
                     $(this).attr('checked', 'checked');
-
-
-
 
                 }
 
                 $(this).parent().toggleClass('completed');
 
-                localStorage.setItem('listItems', $('#list-items').html());
+
             });
+
 
             $(document).on('click', '.remove', function()
             {

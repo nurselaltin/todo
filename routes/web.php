@@ -25,3 +25,4 @@ Route::get('/change-list-status','TodoController@changeListStatus')->name('chang
 Route::get('/add-product-page/{id}','TodoController@addProductPage')->name('add.product.page');
 Route::get('/add-product','TodoController@addProduct')->name('add.product');
 Route::get('/remove-product','TodoController@removeProduct')->name('remove.product');
+Route::get('/change-product-status','TodoController@changeProductStatus')->name('change.product.status');

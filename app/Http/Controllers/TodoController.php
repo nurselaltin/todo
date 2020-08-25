@@ -37,8 +37,13 @@ class TodoController extends Controller
 
     public  function  changeListStatus(Request $request){
 
-        $shoplist =Shoplist::find($request->list_id);
-        $shoplist->status = $request->list_status == true ? 'Liste alışverisi yapıldı': 'Alışveriş yapılmadı';
+        $shoplist = Shoplist::find($request->list_id);
+        if($request->list_status == true){
+            $shoplist->status ='Liste alışverişi yapıldı' ;
+        }
+        if($request->list_status == 'false'){
+            $shoplist->status ='Alışveriş yapılmadı' ;
+        }
         $shoplist->save();
 
 
@@ -74,6 +79,20 @@ class TodoController extends Controller
 
         $product = Product::findOrFail($request->remove_id);
         $product->delete();
+
+    }
+
+    public  function  changeProductStatus(Request $request){
+
+        $product = Product::find($request->product_id);
+        if($request->product_status == true){
+            $product->status ='Ürün alındı' ;
+        }
+        if($request->product_status == 'false'){
+            $product->status ='Ürün alınmadı' ;
+        }
+        $product->save();
+
 
     }
 }
